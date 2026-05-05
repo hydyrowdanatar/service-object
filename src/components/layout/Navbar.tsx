@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { useState } from 'react'
 import { navLinks } from '@/data/navLinks'
 import MegaMenu from './MegaMenu'
+import ProductsMegaMenu from './ProductsMegaMenu'
 
 export default function Navbar() {
     const [activeMenu, setActiveMenu] = useState<string | null>(null)
@@ -24,14 +25,16 @@ export default function Navbar() {
                         >
                             <Link href={item.href}>{item.label}</Link>
                             {item.children && item.children.length > 0 && activeMenu === item.label && (
-                                <MegaMenu items={item.children} />
+                                item.label === 'Products'
+                                    ? <ProductsMegaMenu items={item.children} />
+                                    : <MegaMenu items={item.children} />
                             )}
                         </div>
                     ))}
                 </nav>
                 <div className="navbar__actions">
                     <Link href="/contact-us" className="btn btn--outline btn--sm">Contact Us</Link>
-                    <Link href="/login" className="btn btn--ghost btn--sm">Login</Link>
+                    {/*<Link href="/login" className="btn btn--ghost btn--sm">Login</Link>*/}
                 </div>
                 <button
                     className="navbar__hamburger"
